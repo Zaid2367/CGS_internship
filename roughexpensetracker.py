@@ -10,7 +10,7 @@ def save(df):
     out["date"]=pd.to_datetime(out["date"]).dt.strftime("%Y-%m-%d")
     out.to_csv(expensefile, index=False)
 def savecat(categories):
-    pd.DataFrame({"category":sorted(set(categories),key=str.lower)}).to_csv(categoriesfile,index=False)
+    pd.DataFrame({"categories": categories}).to_csv(categoriesfile,index=False)
 
 if not os.path.exists(expensefile):
     df=pd.DataFrame(columns=columns)
@@ -18,6 +18,8 @@ if not os.path.exists(expensefile):
 if not os.path.exists(categoriesfile):
     df=pd.DataFrame({"categories": categories}).to_csv(categoriesfile,index=False)
 df=pd.read_csv(expensefile)
+df["date"]=pd.to_datetime(df["date"],errors="coerce").dt.date
+df["amount"]=pd.to_numeric(df["amount"],errors="coerce")
 while True:
     print("1. Add expense")
     print("2. View expense")
@@ -36,18 +38,22 @@ while True:
         for i in range(len(categories)):
             print(i,":",categories[i],end="\n")
         cat = int(input("Select the category: "))
-        cate=categories[cat]
-        datee=input("Enter date (YYYY-MM-DD): ")
-        d=pd.to_datetime(datee,errors="coerce")
-        if datee == "":
-            datee = date.today()
-        elif pd.isna(d):
-            print("Invalid date, use (YYYY-MM-DD) format")
+        if not (0 <= cat < len(categories)):
+            print("Invalid category number")
             continue
-        datee=d.date()
+        cate=categories[cat]
+        date_str=input("Enter date (YYYY-MM-DD): ").strip()
+        if date_str == "":
+            datee = date.today()
+        else:
+            d=pd.to_datetime(date_str,errors="coerce")
+            if pd.isna(d):
+                print("Invalid date, use (YYYY-MM-DD) format")
+                continue
+            datee=d.date()
         desc=input("Enter the Description: ")
         newrow={
-            #"id": 1 if df.empty or df['id'].dropna().empty else int(df['id'].max())+1,
+            "id": 1 if df.empty else int(df['id'].max())+1,
             "date":datee,
             "amount":amt,
             "category":cate,
@@ -91,7 +97,7 @@ while True:
             savecat(categories)
             print("Added")
         elif catchoose==3:
-            catdel=input("Enter caategory you want to delete")
+            catdel=input("Enter caategory you want to delete: ")
             if catdel in categories:
                 categories.pop(catdel)
             savecat(categories)
