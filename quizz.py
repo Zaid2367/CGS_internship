@@ -17,7 +17,7 @@ Timer=15
 if not os.path.exists(leaderboard):
     pd.DataFrame(columns=["username","score","category","timestamp"]).to_csv(leaderboard, index=False)
 if not os.path.exists(users):
-    pd.DataFrame(columns=["username","attemps","total_score","best_score","best_category"]).to_csv(users,index=False)
+    pd.DataFrame(columns=["username","attempts","total_score","best_score","best_category"]).to_csv(users,index=False)
 def save_leaderboard(df):
     df.to_csv(leaderboard, index=False)
 def save_users(df):
@@ -36,7 +36,7 @@ def add_leaderboard(uname,score,category):
         "username":uname,
         "score":score,
         "category":category,
-        "time":datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "timestamp":datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }])
     al=pd.concat([al,new],ignore_index=True)
     al=al.sort_values(["score","time"],ascending=[False,False]).head(10)
@@ -50,6 +50,9 @@ def show_leaderboard():
     print(al.to_string(index=False))
 def update_user(uname,score):
     use=pd.read_csv(users)
+    use["attempts"]=pd.to_numeric(use["attempts"],errors="coerce").fillna(0).astype(int)
+    use["total_score"]=pd.to_numeric(use["total_score"],errors="coerce").fillna(0).astype(int)
+    use["best_score"]=pd.to_numeric(use["best_score"],errors="coerce").fillna(0).astype(int)
     if use.empty or not (use["username"]==uname).any():
         use=pd.concat([use,pd.DataFrame([{
             "username":uname,
@@ -58,7 +61,7 @@ def update_user(uname,score):
             "best_score":int(score)
         }])], ignore_index=True)
     else:
-        m=use["username"]=uname
+        m=use["username"]==uname
         use.loc[m,"attempts"]+=1
         use.loc[m,"total_score"]+=int(score)
         use.loc[m,"best_score"]=use.loc[m,"best_score"].clip(lower=int(score))
@@ -68,7 +71,7 @@ def show_user(uname):
     if use.empty or not (use["username"]==uname).any():
         print("no stats yet")
         return
-    r=use[use["username"]==uname].ilco[0]
+    r=use[use["username"]==uname].iloc[0]
     avg= r["total_score"]/r["attempts"] if r["attempts"] else 0
     print("\nStats for",uname)
     print("Attempts",int(r["attempts"]))
@@ -87,7 +90,7 @@ def run(uname):
         print("no questions found")
         return
     n=max(1,min(5,len(df)))
-    timeron=input("Do you want 15secs timer? ").strip().lower()=="y"
+    timeron=input("Do you want 15secs timer? (yes/no) ").strip().lower()=="yes"
     chosen=df.sample(n=n).reset_index(drop=True)
     score=0
     correct=0
@@ -95,7 +98,7 @@ def run(uname):
     for i, row in chosen.iterrows():
         diff=row["difficulty"]
         pts=points.get(diff,10)
-        print(f"Q{i+1}) ({diff.upper()} - {pts} pts) {row["question"]}")
+        print(f"Q{i+1}) ({diff.upper()} - {pts} pts) {row['question']}")
         for idx, opt in enumerate(row["options"],start=1):
             print(idx,".",opt)
         start=time.time()
