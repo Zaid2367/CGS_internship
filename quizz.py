@@ -89,7 +89,7 @@ def run(uname):
     if df.empty:
         print("no questions found")
         return
-    n=max(1,min(5,len(df)))
+    n=min(5,len(df))
     timeron=input("Do you want 15secs timer? (yes/no) ").strip().lower()=="yes"
     chosen=df.sample(n=n).reset_index(drop=True)
     score=0
