@@ -20,6 +20,9 @@ if not os.path.exists(categoriesfile):
 df=pd.read_csv(expensefile)
 df["date"]=pd.to_datetime(df["date"],errors="coerce").dt.date
 df["amount"]=pd.to_numeric(df["amount"],errors="coerce")
+catdf = pd.read_csv(categoriesfile)
+categories = catdf["categories"].dropna().astype(str).tolist()
+
 while True:
     print("1. Add expense")
     print("2. View expense")
@@ -53,7 +56,7 @@ while True:
             datee=d.date()
         desc=input("Enter the Description: ")
         newrow={
-            "id": 1 if df.empty else int(df['id'].max())+1,
+            "id": 1 if df.empty or df['id'].isna().all() else int(df['id'].max())+1,
             "date":datee,
             "amount":amt,
             "category":cate,
@@ -65,22 +68,27 @@ while True:
     elif x==2:
         print(df)
     elif x==3:
-        print(df["amount"])
+        print(df[['id','amount']])
         aedtd=int(input("Enter id of the amount that needs to be edited: "))
+        amtedit=df["id"]==aedtd
+        if not amtedit.any():
+            print("Invalid id")
+            continue
         newamt=float(input("Enter the new Amount: "))
         if newamt <=0:
             print("Invalid Amount! Try Again")
             continue
-        df.loc[aedtd,"amount"]=round(newamt,2)
+        df.loc[amtedit,"amount"]=round(newamt,2)
         save(df)
         print("Edited, the new amount for id",aedtd,"is", newamt)
     elif x==4:
-        df
+        print(df)
         did=int(input("Enter id of the data to delete: "))
-        if did not in df["index"].values:
+        delid=df["id"]==did
+        if not delid.any():
             print("Invalid Index! Try Again")
             continue
-        df=df.drop(df.index[did])
+        df=df.loc[~delid].copy()
         save(df)
         print("Deleted")
     elif x==5:
@@ -97,9 +105,10 @@ while True:
             savecat(categories)
             print("Added")
         elif catchoose==3:
-            catdel=input("Enter caategory you want to delete: ")
+            print(categories)
+            catdel=input("Enter category you want to delete: ")
             if catdel in categories:
-                categories.pop(catdel)
+                categories.remove(catdel)
             savecat(categories)
             print("Deleted")
         else:
@@ -108,7 +117,7 @@ while True:
         end=date.today()
         start=end-timedelta(days=6)
         week=df[(df["date"]>=start)&(df["date"]<=end)]
-        print(week,"Weekly Summary from",start,"to",end)
+        print(week,"\nWeekly Summary from",start,"to",end)
     elif x==7:
         ym=input("Enter month (YYYY-MM): ").strip()
         y,m=ym.split("-")
@@ -122,7 +131,7 @@ while True:
         else:
             end=date(y,m+1,1)-timedelta(days=1)
         mont=df[(df["date"]>=start)&(df["date"]<=end)]
-        print(mont,"Monthly Summary from",start,"to",end)
+        print(mont,"\nMonthly Summary from",start,"to",end)
     elif x==8:
         print("Exited")
         break
