@@ -15,11 +15,12 @@ def load_file(path):
 def clean(df):
     df=df.copy()
     df["date"]=pd.to_datetime(df["date"],errors="coerce")
+    if "date" in df.columns:
+        df=df.sort_values("date")
     df["sales"]=pd.to_numeric(df["sales"],errors="coerce")
     df["cost"]=pd.to_numeric(df["cost"],errors="coerce")
-    x=[c for c in ["date", "sales"] if c in df.columns]
-    if x:
-        df=df.dropna(subset=x)
+    if "sales" in df.columns:
+        df["sales"] = df["sales"].interpolate(method="linear")
     for i in ["region","product"]:
         if i in df.columns:
             df[i]=df[i].fillna("Unknown").astype(str)
@@ -71,16 +72,25 @@ def main():
         elif inp==5:
             if "month" in df.columns and "sales" in df.columns:
                 sales_month.plot(kind="line",marker="o",title="Monthly Sales Trend")
+                plt.xlabel("Month")
+                plt.ylabel("Total Sales")
                 plt.tight_layout()
                 plt.show()
         elif inp==6:
             if "profit_margin" in df.columns:
                 df["profit_margin"].dropna().plot(kind="bar",title="Profit Margin Distribution")
+                plt.xlabel("Records")
+                plt.ylabel("Profit Margin")
                 plt.tight_layout()
                 plt.show()
         elif inp==7:
-            print("Growth Rate\n")
-            df["growth_rate"].dropna().plot(kind="hist",bins=20,title="Monthly Growth Rate")
+            if "growth_rate" in df.columns:
+                print("Growth Rate\n")
+                df["growth_rate"].dropna().plot(kind="hist",bins=20,title="Monthly Growth Rate")
+                plt.xlabel("Growth Rate")
+                plt.ylabel("Frequency")
+                plt.tight_layout()
+                plt.show()
         elif inp==8:
             print("Bye")
             break
