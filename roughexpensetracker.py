@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 categories=["Food","Transport","Entertainment","Bills","Shopping","Health","Other"]
 columns=["id","date","amount","category","description"]
 expensefile="expenses.csv"
@@ -31,7 +31,8 @@ while True:
     print("5. Category management")
     print("6. Weekly summary")
     print("7. Monthly summary")
-    print("8. Exit")
+    print("8. Custom date range summary")
+    print("9. Exit")
     x = int(input("Choose option: "))
     if x==1:
         amt=float(input("Enter Amount: "))
@@ -120,19 +121,43 @@ while True:
         print(week,"\nWeekly Summary from",start,"to",end)
     elif x==7:
         ym=input("Enter month (YYYY-MM): ").strip()
-        y,m=ym.split("-")
-        y,m=int(y),int(m)
-        if not 1<=m<=12:
-            print("Invalid")
-            continue
-        start=date(y,m,1)
-        if m==12:
-            end=date(y+1,1,1)-timedelta(days=1)
-        else:
-            end=date(y,m+1,1)-timedelta(days=1)
-        mont=df[(df["date"]>=start)&(df["date"]<=end)]
-        print(mont,"\nMonthly Summary from",start,"to",end)
-    elif x==8:
+        try:
+            y, m= map(int, ym.split("-"))
+            if not 1<=m<=12: 
+                print("Invalid") 
+                continue 
+            start=date(y,m,1) 
+            if m==12: 
+                end=date(y+1,1,1)-timedelta(days=1) 
+            else: 
+                end=date(y,m+1,1)-timedelta(days=1) 
+                mont=df[(df["date"]>=start)&(df["date"]<=end)] 
+                print(mont,"\nMonthly Summary from",start,"to",end)
+        except Exception:
+            print("Invalid date. Use YYYY-MM-DD")
+    elif x == 8:
+        try:
+            start_input = input("Enter start date (YYYY-MM-DD): ").strip()
+            end_input = input("Enter end date (YYYY-MM-DD): ").strip()
+            start = datetime.strptime(start_input, "%Y-%m-%d").date()
+            end = datetime.strptime(end_input, "%Y-%m-%d").date()
+            if start > end:
+                print("Start date cannot be after end date")
+                continue
+            if pd.api.types.is_datetime64_any_dtype(df["date"]):
+                m = (df["date"].dt.date >= start) & (df["date"].dt.date <= end)
+            else:
+                m = (df["date"] >= start) & (df["date"] <= end)
+            result = df[m]
+            if result.empty:
+                print("No data found in this range.")
+            else:
+                print(result)
+                print("\nSummary from", start, "to", end)
+        except Exception:
+            print("Invalid date format. Use YYYY-MM-DD")
+
+    elif x==9:
         print("Exited")
         break
     else:
