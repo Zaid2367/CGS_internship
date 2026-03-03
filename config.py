@@ -1,11 +1,9 @@
 import os
 
-DATA_DIR = "data"
-OUT_DIR = "output"
-FIG_DIR = os.path.join(OUT_DIR, "figures")
+data = "data"
+output = "output"
+figures = os.path.join(output, "figures")
 
-GRADES_FILE = os.path.join(DATA_DIR, "grades.csv")
-ATTEND_FILE = os.path.join(DATA_DIR, "attendance.csv")
-DEMO_FILE = os.path.join(DATA_DIR, "demographics.csv")
-
-ALPHA = 0.05
+gradesf = os.path.join(data, "grades.csv")
+attendancef = os.path.join(data, "attendance.csv")
+demof = os.path.join(data, "demographics.csv")
