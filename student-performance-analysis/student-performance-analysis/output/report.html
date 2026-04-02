@@ -1,0 +1,103 @@
+
+    <html><head><meta charset="utf-8"/>
+    <title>Student Performance Analysis Report</title>
+    <style>
+      body { font-family: Arial; margin: 30px; }
+      h1 { color:#666; }
+      table { border-collapse: collapse; }
+      th, td { padding: 6px 10px; border: 1px solid #ddd; }
+    </style></head><body>
+
+    <h1>Student Performance Analysis Report</h1>
+    
+    <h2>Data Summary</h2>
+    <ul>
+        <li>Rows: 20</li>
+        <li>Columns: 13</li>
+        <li>Duplicates: 0</li>
+    </ul>
+
+    <h2>Hypothesis</h2>
+    <p><li>n: 20</li><li>pearson_correlation_coefficient: 0.6669176959693142</li><li>pearson_probability: 0.0013192856676435163</li><li>median_hours_split: 2.6</li><li>mean_score_low_hours: 59.8625</li><li>mean_score_high_hours: 78.9</li><li>test_statistics: 3.7432904754115426</li><li>test_probability: 0.0015656909175103418</li><li>interpretation: Correlation(study hours related to scores) Significant (probability value=0.00132). Group difference(difference between low and high study hours) Significant (probability value=0.00157).</li></p>
+
+    <h2>Conclusions</h2>
+    <ul><li>gender: {'M': 10, 'F': 10}</li><li>region: {'Urban': 12, 'Rural': 8}</li><li>parent_education: {'Graduate': 7, 'Postgraduate': 5, 'HighSchool': 4, 'Illiterate': 3, 'Gone for Milk': 1}</li></ul>
+
+    <h2>Key Points</h2>
+    <ul><li>Attendance to Score Relationship: Attendance below 70% average score 55.60, Attendance above 70% average score 75.29.</li><li>More Attendance = More Score, send your child to school</li><li>Correlation(study hours related to scores) Significant (probability value=0.00132). Group difference(difference between low and high study hours) Significant (probability value=0.00157).</li></ul>
+
+    <h2>Tables</h2>
+    <p><h3>crosstab_region_passfail</h3><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>pass</th>
+      <th>Fail</th>
+      <th>Pass</th>
+    </tr>
+    <tr>
+      <th>region</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Rural</th>
+      <td>0.125</td>
+      <td>0.875</td>
+    </tr>
+    <tr>
+      <th>Urban</th>
+      <td>0.083</td>
+      <td>0.917</td>
+    </tr>
+  </tbody>
+</table><h3>pivot_gender_mean_score</h3><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>final_score</th>
+    </tr>
+    <tr>
+      <th>gender</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>F</th>
+      <td>70.000</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>68.762</td>
+    </tr>
+  </tbody>
+</table><h3>pivot_region_mean_score</h3><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>final_score</th>
+    </tr>
+    <tr>
+      <th>region</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Urban</th>
+      <td>75.000</td>
+    </tr>
+    <tr>
+      <th>Rural</th>
+      <td>60.953</td>
+    </tr>
+  </tbody>
+</table></p>
+
+    <h2>Visualizations</h2>
+    <p><img src="figures\hist_final_score.png" width="800"><br><br><img src="figures\hist_attendance_rate.png" width="800"><br><br><img src="figures\box_score_by_gender.png" width="800"><br><br><img src="figures\scatter_hours_vs_score.png" width="800"><br><br><img src="figures\bar_mean_score_by_region.png" width="800"><br><br></p>
+    </body>
+    </html>
+    

@@ -1,0 +1,9 @@
+Income,Credit_Score,Loan_Amount,Gender,Married,Education,Self_Employed,Loan_Status
+50000,720,200000,Male,Yes,Graduate,No,Approved
+30000,650,150000,Female,No,Graduate,No,Rejected
+45000,700,180000,Male,Yes,Not Graduate,Yes,Approved
+25000,600,120000,Female,No,Graduate,No,Rejected
+60000,750,250000,Male,Yes,Graduate,No,Approved
+40000,680,160000,Female,Yes,Graduate,Yes,Approved
+35000,620,140000,Male,No,Not Graduate,No,Rejected
+70000,800,300000,Female,Yes,Graduate,No,Approved

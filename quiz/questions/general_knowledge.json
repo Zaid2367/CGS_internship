@@ -1,0 +1,47 @@
+[
+  {
+    "id": "gk_001",
+    "question": "What is the capital of India?",
+    "options": ["Mumbai", "New Delhi", "Chennai", "Kolkata"],
+    "answer_index": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "gk_002",
+    "question": "Which is the largest ocean on Earth?",
+    "options": [
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Arctic Ocean",
+      "Pacific Ocean"
+    ],
+    "answer_index": 3,
+    "difficulty": "easy"
+  },
+  {
+    "id": "gk_003",
+    "question": "Which currency is used in Japan?",
+    "options": ["Yuan", "Won", "Yen", "Dollar"],
+    "answer_index": 2,
+    "difficulty": "medium"
+  },
+  {
+    "id": "gk_004",
+    "question": "Which country gifted the Statue of Liberty to the USA?",
+    "options": ["Germany", "France", "Canada", "Italy"],
+    "answer_index": 1,
+    "difficulty": "medium"
+  },
+  {
+    "id": "gk_005",
+    "question": "Which is the smallest continent by land area?",
+    "options": [
+      "Europe",
+      "Antarctica",
+      "Australia",
+      "South America"
+    ],
+    "answer_index": 2,
+    "difficulty": "hard"
+  }
+]

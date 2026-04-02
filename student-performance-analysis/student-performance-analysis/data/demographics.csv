@@ -1,0 +1,21 @@
+student_id,gender,age,region,parent_education
+S001,M,17,Urban,Graduate
+S002,F,16,Rural,HighSchool
+S003,M,17,Urban,Postgraduate
+S004,F,18,Rural,Illiterate
+S005,M,16,Urban,Graduate
+S006,F,17,Urban,Graduate
+S007,M,19,Urban,Postgraduate
+S008,F,15,Rural,HighSchool
+S009,M,17,Rural,HighSchool
+S010,F,17,Urban,Postgraduate
+S011,M,16,Rural,Illiterate
+S012,F,15,Urban,Graduate
+S013,M,17,Rural,Gone for Milk
+S014,F,18,Urban,Graduate
+S015,M,17,Urban,Graduate
+S016,F,17,Urban,Postgraduate
+S017,M,17,Rural,HighSchool
+S018,F,18,Rural,Illiterate
+S019,M,16,Urban,Graduate
+S020,F,18,Urban,Postgraduate

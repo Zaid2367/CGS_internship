@@ -1,0 +1,57 @@
+[
+  {
+    "id": "his_001",
+    "question": "Who was the first Prime Minister of India?",
+    "options": [
+      "Mahatma Gandhi",
+      "Jawaharlal Nehru",
+      "Sardar Patel",
+      "Rajendra Prasad"
+    ],
+    "answer_index": 1,
+    "difficulty": "easy"
+  },
+  {
+    "id": "his_002",
+    "question": "In which year did India gain independence?",
+    "options": ["1945", "1946", "1947", "1950"],
+    "answer_index": 2,
+    "difficulty": "easy"
+  },
+  {
+    "id": "his_003",
+    "question": "Who was the founder of the Maurya Empire?",
+    "options": [
+      "Ashoka",
+      "Bindusara",
+      "Chandragupta Maurya",
+      "Harsha"
+    ],
+    "answer_index": 2,
+    "difficulty": "medium"
+  },
+  {
+    "id": "his_004",
+    "question": "Which war was fought between the North and South regions in the United States?",
+    "options": [
+      "World War I",
+      "World War II",
+      "American Civil War",
+      "Cold War"
+    ],
+    "answer_index": 2,
+    "difficulty": "medium"
+  },
+  {
+    "id": "his_005",
+    "question": "The Treaty of Versailles was signed after which war?",
+    "options": [
+      "World War I",
+      "World War II",
+      "Franco-Prussian War",
+      "Cold War"
+    ],
+    "answer_index": 0,
+    "difficulty": "hard"
+  }
+]
